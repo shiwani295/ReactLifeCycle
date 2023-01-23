@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddData.css";
 import ErrModel from "./ErrModel";
+import Wrapper from "./Helpers/Wrapper";
 
 const AddData = (props) => {
   const [Username, setUsername] = useState("");
@@ -41,7 +42,7 @@ const AddData = (props) => {
   };
 
   return (
-    <>
+    <Wrapper>
       {Err && (
         <ErrModel
           title={Err.title}
@@ -81,7 +82,7 @@ const AddData = (props) => {
           </div>
         </form>
       </div>
-    </>
+    </Wrapper>
   );
 };
 

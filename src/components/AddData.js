@@ -1,40 +1,46 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./AddData.css";
 import ErrModel from "./ErrModel";
 import Wrapper from "./Helpers/Wrapper";
 
 const AddData = (props) => {
-  const [Username, setUsername] = useState("");
-  const [Age, setAge] = useState("");
+  const NameInputRef = useRef();
+  const AgeInputRef = useRef();
+  const ClgInputRef = useRef();
   const [Err, setErr] = useState("");
 
   const AddUserHandler = (event) => {
     event.preventDefault();
+    const InputNameEnteredValue = NameInputRef.current.value;
+    const InputAgeEnteredValue = AgeInputRef.current.value;
+    const InputClgEnteredValue = ClgInputRef.current.value;
 
-    if (Username.trim().length === 0 || Age.trim().length === 0) {
+    if (
+      InputNameEnteredValue.trim().length === 0 ||
+      InputAgeEnteredValue.trim().length === 0 ||
+      InputClgEnteredValue.trim().length === 0
+    ) {
       setErr({
         title: "Invalid Input",
-        message: "Please Enter a valid name and age",
+        message: "Please Enter a valid name , age and collage",
       });
       return;
     }
-    if (+Age < 1) {
+    if (+InputAgeEnteredValue < 1) {
       setErr({
         title: "Invalid Age",
-        message: "Please Enter a valid name and age>0",
+        message: "Please Enter a valid Age (age > 0) ",
       });
       return;
     }
-    props.onAddUser(Username, Age);
-    setUsername("");
-    setAge("");
-  };
-
-  const NameHandler = (event) => {
-    setUsername(event.target.value);
-  };
-  const AgeHandler = (event) => {
-    setAge(event.target.value);
+    props.onAddUser(
+      InputNameEnteredValue,
+      InputAgeEnteredValue,
+      InputClgEnteredValue
+    );
+    NameInputRef.current.value = "";
+    AgeInputRef.current.value = "";
+    ClgInputRef.current.value = "";
   };
 
   const ErrHandler = () => {
@@ -42,6 +48,7 @@ const AddData = (props) => {
   };
 
   return (
+    //here we are using wrapper 5t
     <Wrapper>
       {Err && (
         <ErrModel
@@ -59,20 +66,29 @@ const AddData = (props) => {
             <input
               type="text"
               className="form-control"
-              value={Username}
               id="name"
               placeholder="Enter Name"
-              onChange={NameHandler}
+              ref={NameInputRef}
             />
             <br />
             <label htmlFor="number">Age (Year)</label>
             <input
               type="number"
               className="form-control"
-              value={Age}
               id="number"
               placeholder="Enter Age"
-              onChange={AgeHandler}
+              ref={AgeInputRef}
+            />
+
+            <br />
+            <br />
+            <label htmlFor="clg">Collage </label>
+            <input
+              type="text"
+              className="form-control"
+              id="clg"
+              placeholder="Enter Collage name"
+              ref={ClgInputRef}
             />
 
             <br />

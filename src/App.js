@@ -4,17 +4,17 @@ import AddData from "./components/AddData";
 import AddUserList from "./components/AddUserList";
 function App() {
   const [UsersList, setUserList] = useState([]);
-  const AddUserHandler = (uname, uAge) => {
+  const AddUserHandler = (uname, uAge, uClg) => {
     setUserList((prevUsersList) => {
       return [
         ...prevUsersList,
-        { name: uname, age: uAge, id: Math.random().toString() },
+        { name: uname, age: uAge, clg: uClg, id: Math.random().toString() },
       ];
     });
   };
 
   return (
-    //  Adding Fragment here <React.Fragment> using fragment here
+    //  Adding Fragment here <React.Fragment> using fragment here 5t
     <Fragment>
       <AddData onAddUser={AddUserHandler} />
       <AddUserList users={UsersList} />
